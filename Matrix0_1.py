@@ -1,54 +1,69 @@
-print('███████████████████████████████')
-print('█─███─█────█───█────█───█──█──█')
-print('█──█──█─██─██─██─██─██─███───██')
-print('█─█─█─█────██─██────██─████─███')
-print('█─███─█─██─██─██─█─███─███───██')
-print('█─███─█─██─██─██─█─██───█──█──█')
-print('███████████████████████████████')
+
+print('''
+███████████████████████████████
+█─███─█────█───█────█───█──█──█
+█──█──█─██─██─██─██─██─███───██
+█─█─█─█────██─██────██─████─███
+█─███─█─██─██─██─█─███─███───██
+█─███─█─██─██─██─█─██───█──█──█
+███████████████████████████████
+''')
 print('Version: 0.1')
-import math
+
+
 def input_3_order():
-    global a11
-    global a12
-    global a13 
-    global a21 
-    global a22 
-    global a23 
-    global a31 
-    global a32 
-    global a33 
-    a11 = int(input('Enter a11:'))
-    a12 = int(input('Enter a12:'))
-    a13 = int(input('Enter a13:'))
-    a21 = int(input('Enter a21:'))
-    a22 = int(input('Enter a22:'))
-    a23 = int(input('Enter a23:'))
-    a31 = int(input('Enter a31:'))
-    a32 = int(input('Enter a32:'))
-    a33 = int(input('Enter a33:'))
+    matrix_3_order_input = {}
+    for i in range(3):
+        matrix_3_order_input[f'a1{i + 1}'] = int(input(f'Enter matrix a1{i + 1} element: '))
+        if len(matrix_3_order_input) == 3:
+            break
+    for i in range(3):
+        matrix_3_order_input[f'a2{i + 1}'] = int(input(f'Enter matrix a2{i + 1} element: '))
+        if len(matrix_3_order_input) == 6:
+            break
+    for i in range(3):
+        matrix_3_order_input[f'a3{i + 1}'] = int(input(f'Enter matrix a3{i + 1} element: '))
+        if len(matrix_3_order_input) == 9:
+            break
+    print(matrix_3_order_input)
     print('Your input: ')
-    print(a11, a12, a13)
-    print(a21, a22, a23)
-    print(a31, a32, a33)
-    return
+    print(f'''
+{matrix_3_order_input['a11']} | {matrix_3_order_input['a12']} | {matrix_3_order_input['a13']}
+{matrix_3_order_input['a21']} | {matrix_3_order_input['a22']} | {matrix_3_order_input['a23']}
+{matrix_3_order_input['a31']} | {matrix_3_order_input['a32']} | {matrix_3_order_input['a33']}
+    ''')
+    return matrix_3_order_input
+
+
 def input_2_order():
-    global a11
-    global a12
-    global a21
-    global a22
-    a11 = int(input('Enter a11:'))
-    a12 = int(input('Enter a12:'))
-    a21 = int(input('Enter a21:'))
-    a22 = int(input('Enter a22:'))
-    return
+    matrix_2_order_input = {}
+    for i in range(2):
+        matrix_2_order_input[f'a1{i + 1}'] = int(input(f'Enter matrix a1{i + 1} element: '))
+        if len(matrix_2_order_input) == 2:
+            break
+    for i in range(2):
+        matrix_2_order_input[f'a2{i + 1}'] = int(input(f'Enter matrix a2{i + 1} element: '))
+        if len(matrix_2_order_input) == 4:
+            break
+    print(matrix_2_order_input)
+    print('Your input:')
+    print(f'''
+     {matrix_2_order_input['a11']} | {matrix_2_order_input['a12']}
+     {matrix_2_order_input['a21']} | {matrix_2_order_input['a22']}
+         ''')
+    return matrix_2_order_input
+
+
 while True:
-    print('This is program can help with matrix calculation')
-    print('Choose that you want to do:')
-    print('1) Calculate the determinant of the matrix')
-    print('2) Find the matrix of algebraic complements')
-    print("3) Find the minor of matrix's element")
+    print('''
+    This is program can help with matrix calculation
+    Choose that you want to do:
+    1) Calculate the determinant of the matrix
+    2) Find the matrix of algebraic complements
+    3) Find the minor of matrix's element
+    ''')
     user_input = int(input('Choose: '))
-    
+
     if user_input == 1:
         print('Now you can choose det of matrix: ')
         n = int(input('Choose det 1, 2 or 3: '))
@@ -56,63 +71,51 @@ while True:
             a11 = int(input('Enter a11:'))
             A = a11
             print(A)
-            if A == 0:
-                print('Degenerate')
-            else:
-                print('Nondegenerate')
+            print('Degenerate' if A == 0 else 'Non degenerate')
         if n == 2:
-            input_2_order()
-            A = a11*a22 - a12*a21
+            matrix_2_order = input_2_order()
+            A = matrix_2_order['a11'] * matrix_2_order['a22'] - matrix_2_order['a12'] * matrix_2_order['a21']
             print(A)
-            if A == 0:
-                print('Degenerate')
-            else:
-                print('Nondegenerate')
+            print('Degenerate' if A == 0 else 'Non degenerate')
         if n == 3:
-            input_3_order()
-            A = a11*a22*a33 + a21*a32*a13 + a12*a23*a31 - a13*a22*a31 - a23*a32*a11 - a12*a21*a33
+            matrix_3_order = input_3_order()
+            A = matrix_3_order['a11'] * matrix_3_order['a22'] * matrix_3_order['a33'] + \
+                matrix_3_order['a31'] * matrix_3_order['a12'] * matrix_3_order['a23'] + \
+                matrix_3_order['a21'] * matrix_3_order['a32'] * matrix_3_order['a13'] - \
+                matrix_3_order['a31'] * matrix_3_order['a22'] * matrix_3_order['a13'] - \
+                matrix_3_order['a21'] * matrix_3_order['a12'] * matrix_3_order['a33'] - \
+                matrix_3_order['a11'] * matrix_3_order['a23'] * matrix_3_order['a32']
             print(A)
-            if A == 0:
-                print('Degenerate')
-            else:
-                print('Nondegenerate')
+            print('Degenerate' if A == 0 else 'Non degenerate')
+
     if user_input == 2:
-        input_3_order()
-        A11 = 1 * (a22*a33 - a23*a32)
-        A12 = -1 * (a21*a33 - a23*a31)
-        A13 = 1  * (a21*a32 - a22*a31)
-        A21 = -1 * (a12*a33 - a13*a32)
-        A22 = 1 * (a11*a33 - a13*a31)
-        A23 = -1 * (a11*a32 - a12*a31)
-        A31 = 1 * (a12*a23 - a13*a22)
-        A32 = -1 * (a11*a23 - a13*a21)
-        A33 = 1 * (a11*a22 - a12*a21)
+        matrix_3_order = input_3_order()
+        A11 = 1 * (matrix_3_order['a22'] * matrix_3_order['a33'] - matrix_3_order['a23'] * matrix_3_order['a32'])
+        A12 = -1 * (matrix_3_order['a21'] * matrix_3_order['a33'] - matrix_3_order['a23'] * matrix_3_order['a31'])
+        A13 = 1 * (matrix_3_order['a21'] * matrix_3_order['a32'] - matrix_3_order['a22'] * matrix_3_order['a31'])
+        A21 = -1 * (matrix_3_order['a12'] * matrix_3_order['a33'] - matrix_3_order['a13'] * matrix_3_order['a32'])
+        A22 = 1 * (matrix_3_order['a11'] * matrix_3_order['a33'] - matrix_3_order['a13'] * matrix_3_order['a31'])
+        A23 = -1 * (matrix_3_order['a11'] * matrix_3_order['a32'] - matrix_3_order['a12'] * matrix_3_order['a31'])
+        A31 = 1 * (matrix_3_order['a12'] * matrix_3_order['a23'] - matrix_3_order['a13'] * matrix_3_order['a22'])
+        A32 = -1 * (matrix_3_order['a11'] * matrix_3_order['a23'] - matrix_3_order['a13'] * matrix_3_order['a21'])
+        A33 = 1 * (matrix_3_order['a11'] * matrix_3_order['a22'] - matrix_3_order['a12'] * matrix_3_order['a21'])
         print('Now you have: ')
-        print(A11, A12, A13)
-        print(A21, A22, A23)
-        print(A31, A32, A33)
+        print(f'''
+{A11} | {A12} | {A13}
+{A21} | {A22} | {A23}
+{A31} | {A32} | {A33}
+''')
     if user_input == 3:
-        print('████─████─████─█───█─███─█──█─████')
-        print('█──█─█──█─█──█─██─██──█──██─█─█')
-        print('█────█──█─█──█─█─█─█──█──█─██─█─██')
-        print('█──█─█──█─█──█─█───█──█──█──█─█──█')
-        print('████─████─████─█───█─███─█──█─████')
-        print('                                 ')
-        print('███─████─████─█──█')
-        print('█───█──█─█──█─██─█')
-        print('███─█──█─█──█─█─██')
-        print('──█─█──█─█──█─█──█')
-        print('███─████─████─█──█')
+        print('''
+        ████─████─████─█───█─███─█──█─████
+        █──█─█──█─█──█─██─██──█──██─█─█
+        █────█──█─█──█─█─█─█──█──█─██─█─██
+        █──█─█──█─█──█─█───█──█──█──█─█──█
+        ████─████─████─█───█─███─█──█─████
 
-
-
-            
-                
-                 
-                 
-
-
-
-
-
-
+        ███─████─████─█──█
+        █───█──█─█──█─██─█
+        ███─█──█─█──█─█─██
+        ──█─█──█─█──█─█──█
+        ███─████─████─█──█
+        ''')
